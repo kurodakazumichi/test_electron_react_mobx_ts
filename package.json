@@ -1,0 +1,7 @@
+{
+  "name": "electron_workshop1",
+  "version": "1.0.0",
+  "main": "main.js",
+  "author": "kazumichi kuroda <kazumichi96@gmail.com>",
+  "license": "MIT"
+}
