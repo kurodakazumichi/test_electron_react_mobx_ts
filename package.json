@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "start": "electron ./dist/main.js",
-    "build:main": "tsc",
+    "build:main": "tsc --project tsconfig.electron.json",
     "build:render": "webpack"
   },
   "dependencies": {

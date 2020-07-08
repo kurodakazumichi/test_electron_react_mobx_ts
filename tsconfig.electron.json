@@ -1,0 +1,7 @@
+// Electronのビルド用tsconfig.json
+{
+  "extends": "./tsconfig",
+  "files": [
+    "src/main.ts"
+  ]
+}
