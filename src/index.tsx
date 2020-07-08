@@ -49,6 +49,7 @@ class App extends React.Component {
   constructor(props:any) {
     super(props);
 
+    window.core.xxxx();
 
     const enemy = new EnemyEntity();
     enemy.setId(1);

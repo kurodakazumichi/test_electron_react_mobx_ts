@@ -1,53 +1,125 @@
-# 概要
-Electron+React+TypeScriptでデスクトップアプリを作りたかった。
+---
+marp: true
+---
+<!-- theme: gaia -->
+<!-- size: 16:9 -->
+<!-- page_number: true -->
+<!-- paginate: true -->
+
+# Electron+React+TypeScriptでデスクトップアプリ
+
 Qiitaにそれっぽい記事があったので試してみてるのがこのプロジェクト
 
+---
 
-# 参考記事
-
-## Electron & React & Redux & TypeScript アプリ作成ワークショップ 1日目
+# ワークショップ 1日目
 
 https://qiita.com/EBIHARA_kenji/items/25e59f7132b96cb886f3
 
-Node.jsやnpm、yarn、必要なmoduleの導入などの環境構築を行う程度
-本記事ではreduxを入れているが、このプロジェクトではmobxを導入した
+- 環境構築を行う程度
+  - Node.jsやnpm、yarn、必要なmoduleの導入など
+- 参考記事ではreduxを入れている
+  - ➡このプロジェクトではmobxを導入した
 
-## Electron & React & Redux & TypeScript アプリ作成ワークショップ 2日目
+---
+
+# ワークショップ 2日目
 
 https://qiita.com/EBIHARA_kenji/items/e6da1c3d6d16cf07b60a
 
-typescriptやwebpackなどの環境設定を行い(詳細は以下に列挙)
-最小構成で、一応動作するElectronアプリを作るところまで。
+- 環境設定
+  (typescript、webpackなどの設定)
+- 最小構成でElectronアプリが一応動くとこまで
+- eslintとprettier
+  - ➡個人的に不要なので入れなかった
 
-- typescriptの設定
-- eslintの設定
-- prettierの設定
-- eslintとprettieの連携
-- webpackの設定
+---
 
-eslintとprettier入らないので設定しなかった。
+# トラブルシューティング
 
-### トラブルシューティング
+`./src/main.ts`の中で`path`や`process`などが無いですよと**エラー**
 
-`./src/main.ts`の中で`path`や`process`などが無いと怒られた。
-下記の手順で解決した
-- yarn add -D @types/node
-- tsconfig.jsonに、`types:["node"}`を追記。
+## 解決方法
+- `yarn add -D @types/node`
+- tsconfig.jsonに、`types:{"node"}`を追記。
 
 関連コミット [191478b] [a63b532]
 
-## 3日目～5日目はスキップ
+---
 
- Reduxを使った基本的なアプリの開発だったのでここはスキップ
- 仮にMobxを使うための環境設定を頑張る。
+# ワークショップ 3日目～5日目
 
-- mobxを使うにあたって
-  - `mobx`と`mobx-react`を入れていれば基本は使える
-  - decorator記法がエラーになるのでtsconfig.jsonで`"experimentalDecorators": true`を有効にしておく
-  - tsconfig.jsonの`files`でコンパイル対象のファイルを定義しているとそのファイル以外ではデコレーターが使えない？という問題が起こった
-  - tsconfig.jsonの中のElectron用の設定部分を`tsconfig.electron.json`に分離した
-  - Electron用のビルドをする場合は`yarn tsc --project electron`にする。
+**👆これはやらなかった**
 
-- index.tscの中でいろいろやってみた
-  - 普通にReact動くしMobxも動く、特に問題なさそう
-
+- Reduxを使ったアプリの開発練習
+
+  ➡ だってMobx使うし
+  ➡ その辺は慣れてるし
+
+---
+
+# mobxを使うにあたって
+- `yarn add mobx mobx-react`で導入
+- `@computed`とかのデコレーション記法がエラーになる
+  - tsconfig.jsonの`"experimentalDecorators": true`を有効化
+- ElectronとReact用でtsconfigを分けるべきかも
+  - tsconfig.jsonの`files`でコンパイル対象のファイルを定義しているとそのファイル以外でデコレーターが使えない
+  - tsconfig.jsonの中のElectron用の設定部分を`tsconfig.electron.json`に分離
+  - `yarn tsc --project electron`でビルド
+
+---
+# mobx動く？
+
+普通に動く(^^)/
+
+---
+
+
+## ワークショップ 6日目
+
+- Electronからローカルファイルにアクセスする話
+- セキュリティとかどうなの？
+
+  ➡ そういうときの為にpreloadってものがあるのじゃ
+
+---
+
+## 基本の流れ
+
+- Reactで作ったものをビルド
+- Electron用の処理をビルド
+- 👆これを同じフォルダに出力されるようにする(./distとか)
+- `electron ./dist/main.js`で実行
+
+---
+
+## この記事で分かった事
+
+- Reactで作ったアプリをElectronで動かす方法
+- ローカルファイルにアクセスする方法
+- 基本的な考え方
+
+React+Reduxの話が多め、そこらへんは読んでない
+
+---
+
+## この記事でわからなかった事
+
+- HMRのやり方
+  - コード書いたら変更がそのまま反映されてほしい
+  ☞ https://cano.work/posts/2019-01-02--introduce-electron-webpack/
+  - electron-webpackというものがあるらしい
+  - それ使えば望んでる環境が手に入る(らしい)
+
+---
+
+## 調べときたいnpm
+
+- fs-extra
+  ➡ ファイルのアクセスに
+- shortid
+  ➡ 一意のID作成に
+
+`yarn add fs-extra shortid && yarn add -D @types/fs-extra @types/shortid`
+
+インストールしたけど結局使ってない。

@@ -2,6 +2,7 @@
 {
   "extends": "./tsconfig",
   "files": [
-    "src/main.ts"
+    "src/main.ts",
+    "src/core/preLoad.ts",
   ]
 }
