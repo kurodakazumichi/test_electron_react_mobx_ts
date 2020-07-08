@@ -35,3 +35,19 @@ eslintとprettier入らないので設定しなかった。
 - tsconfig.jsonに、`types:["node"}`を追記。
 
 関連コミット [191478b] [a63b532]
+
+## 3日目～5日目はスキップ
+
+ Reduxを使った基本的なアプリの開発だったのでここはスキップ
+ 仮にMobxを使うための環境設定を頑張る。
+
+- mobxを使うにあたって
+  - `mobx`と`mobx-react`を入れていれば基本は使える
+  - decorator記法がエラーになるのでtsconfig.jsonで`"experimentalDecorators": true`を有効にしておく
+  - tsconfig.jsonの`files`でコンパイル対象のファイルを定義しているとそのファイル以外ではデコレーターが使えない？という問題が起こった
+  - tsconfig.jsonの中のElectron用の設定部分を`tsconfig.electron.json`に分離した
+  - Electron用のビルドをする場合は`yarn tsc --project electron`にする。
+
+- index.tscの中でいろいろやってみた
+  - 普通にReact動くしMobxも動く、特に問題なさそう
+
