@@ -4,6 +4,11 @@
   "main": "main.js",
   "author": "kazumichi kuroda <kazumichi96@gmail.com>",
   "license": "MIT",
+  "scripts": {
+    "start": "electron ./dist/main.js",
+    "build:main": "tsc",
+    "build:render": "webpack"
+  },
   "dependencies": {
     "mobx": "^5.15.4",
     "mobx-react": "^6.2.2",
